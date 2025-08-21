@@ -1,0 +1,16 @@
+<div *ngIf="job; else empty">
+  <h2>{{ job.title }}</h2>
+  <div class="meta">{{ job.location }} — {{ job.employmentType }}</div>
+  <p>{{ job.shortDescription }}</p>
+  <div *ngIf="job.requirements?.length">
+    <h4>Requirements</h4>
+    <ul>
+      <li *ngFor="let r of job.requirements">{{ r }}</li>
+    </ul>
+  </div>
+  <button (click)="viewDetails()">View details</button>
+  <button (click)="apply()" [disabled]="!(job && (job._id || job.id))">Apply</button>
+</div>
+<ng-template #empty>
+  <div>Select a job to see details</div>
+</ng-template>

@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="left">
+  <app-job-list (selectedJob)="onSelect($event)" (apply)="openApply($event)"></app-job-list>
+  </div>
+  <div class="right">
+  <app-job-detail [job]="selectedJob" (openApply)="openApply()" (view)="onSelect($event)"></app-job-detail>
+  <app-apply-modal *ngIf="showApply" [jobId]="selectedJob?._id || selectedJob?.id" (close)="closeApply()" (applied)="onApplied()"></app-apply-modal>
+  </div>
+</div>
+
+  <app-toast></app-toast>

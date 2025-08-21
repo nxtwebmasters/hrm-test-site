@@ -1,0 +1,59 @@
+<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="apply-title">
+  <div class="modal" role="document">
+    <h2 id="apply-title">Apply for job</h2>
+    <form [formGroup]="form" (ngSubmit)="submit(jobId || '')" novalidate>
+      <label>
+        First name
+        <input #firstInput formControlName="firstName" />
+        <div class="error" *ngIf="form.controls.firstName.touched && form.controls.firstName.invalid">First name is required (2-100)</div>
+      </label>
+
+      <label>
+        Last name
+        <input formControlName="lastName" />
+        <div class="error" *ngIf="form.controls.lastName.touched && form.controls.lastName.invalid">Last name is required (2-100)</div>
+      </label>
+
+      <label>
+        Email
+        <input formControlName="email" />
+        <div class="error" *ngIf="form.controls.email.touched && form.controls.email.invalid">Valid email required</div>
+      </label>
+
+      <label>
+        Phone
+        <input formControlName="phone" />
+      </label>
+
+      <label>
+        Cover letter
+        <textarea formControlName="coverLetter" maxlength="2000"></textarea>
+      </label>
+
+      <label>
+        Resume
+        <input type="file" (change)="onFileChange($event)" />
+      </label>
+
+      <div *ngIf="uploading">Uploading: {{ uploadProgress }}%</div>
+      <div *ngIf="resumeFileKey">Uploaded file key: {{ resumeFileKey }}</div>
+
+      <!-- AI Status Section -->
+      <div *ngIf="showAIStatus" class="ai-status-section">
+        <h3>AI Processing Status</h3>
+        <div class="ai-status">{{ getAIStatusMessage() }}</div>
+        <div *ngIf="aiStatus?.aiRetryCount && aiStatus.aiRetryCount > 0" class="ai-retry">
+          Retry attempts: {{ aiStatus.aiRetryCount }}
+        </div>
+        <div *ngIf="aiStatus?.aiStatus === 'complete' && aiStatus?.seniorityLevel" class="ai-seniority">
+          Detected seniority level: {{ aiStatus.seniorityLevel }}
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" (click)="close.emit()">Close</button>
+        <button type="submit" [disabled]="submitting || uploading || form.invalid">Submit application</button>
+      </div>
+    </form>
+  </div>
+</div>

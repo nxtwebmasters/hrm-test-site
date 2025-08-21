@@ -1,0 +1,12 @@
+<div class="job-list">
+  <div *ngIf="loading">Loading...</div>
+  <ul *ngIf="!loading">
+    <li *ngFor="let job of jobs" class="job-item">
+      <h3>{{ job.title }}</h3>
+      <div class="meta">{{ job.location }} — {{ job.employmentType }}</div>
+      <p>{{ job.shortDescription }}</p>
+  <button (click)="select(job)">View</button>
+  <button (click)="applyNow(job)">Apply</button>
+    </li>
+  </ul>
+</div>

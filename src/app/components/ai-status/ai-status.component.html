@@ -1,0 +1,22 @@
+<div class="ai-status-container" [ngClass]="getStatusClass()">
+  <h4>AI Processing Status</h4>
+  <div class="status-message">{{ getStatusMessage() }}</div>
+  
+  <div *ngIf="aiStatus?.aiRetryCount && aiStatus.aiRetryCount > 0" class="retry-info">
+    Retry attempts: {{ aiStatus.aiRetryCount }}
+  </div>
+  
+  <div *ngIf="aiStatus?.aiStatus === 'complete'" class="completion-details">
+    <div *ngIf="aiStatus?.seniorityLevel" class="seniority">
+      Detected seniority: <strong>{{ aiStatus.seniorityLevel }}</strong>
+    </div>
+    <div *ngIf="aiStatus?.extractedSkills?.length" class="skills">
+      <strong>Skills identified:</strong> {{ aiStatus.extractedSkills.join(', ') }}
+    </div>
+  </div>
+  
+  <div *ngIf="aiStatus?.aiStatus === 'failed' && aiStatus?.lastAIError" class="error-details">
+    <div class="error-message">{{ aiStatus.lastAIError.message }}</div>
+    <div class="error-time">{{ aiStatus.lastAIError.timestamp | date:'short' }}</div>
+  </div>
+</div>
