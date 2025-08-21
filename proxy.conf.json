@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://efhrm.expertflow.com",
+    "target": "https://efhrm.expertflow.com/api",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"
